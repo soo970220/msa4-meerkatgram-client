@@ -1,5 +1,9 @@
 <script setup>
 const props = defineProps({
+    'btnType': {
+      type: String,
+      default:'butten'
+    }, // 'button', 'submit', reset
     'size' : String, // 'big', 'middle', 'small'
     'color' : String, // 'black', 'white', 'gray'
     'content' : String,
@@ -8,7 +12,9 @@ const props = defineProps({
 </script>
 
 <template>
-  <button type="button" :class="[props.color, props.size]"
+  <button
+   type="props.btnType" 
+  :class="[props.color, props.size]"
   >{{props.content}}</button>
 
 </template>

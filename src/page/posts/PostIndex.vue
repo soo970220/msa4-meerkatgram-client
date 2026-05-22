@@ -1,37 +1,44 @@
 <script setup>
 import { onBeforeMount, ref } from 'vue';
 import MyButton from '../../components/buttons/MyButton.vue';
-import myAxios from '../../api/myAxios.js';
+import { usePostIndexStore } from '../../store/post/usePostIndexStore.js';
 
-const posts =ref([]);
-const isLastPage = ref(false);
-let currentPage = 1;
+// --------------------- 스토어로 이관 start----------
+// const posts =ref([]);
+// const isLastPage = ref(false);
+// let currentPage = 0;
 
-// 함수
-const getPostPagenation = async () => {
-  // 마지막 페이지가 아닐 경우만 실행
-  if(!isLastPage.value) {
-    try{
-      const url = '/api/posts';
-      const params = {
-      page: currentPage,
-   }; 
-
-      const res = await myAxios.get(url, {params});
-      const data = res.data.data;
-      isLastPage.value = data.lastPage;
-      posts.value.push(...data.posts);
-    }catch(error){
-      console.error(error)
-    }
+// // 함수
+// const getPostPagenation = async (page = 1 ) => {
+//   // 마지막 페이지가 아닐 경우만 실행
+//   if(!isLastPage.value) {
+//     try{
+//       const url = '/api/posts';
+//       const params = {
+//       page,
+//    }; 
    
-   
+//       const res = await myAxios.get(url, {params});
+//       const data = res.data.data;
+//       isLastPage.value = data.lastPage;
+//       posts.value.push(...data.posts);
+
+//      currentPage++; 
+//     }catch(error){
+//       console.error(error)
+//     }  
+//    }
+// }
+// --------------------- 스토어로 이관 end ----------
+
+const postIndexStore = usePostIndexStore();
+
+const getNextPage = async () => {
+    await postIndexStore.getPostPagenation(postIndexStore.getNextPageNumber);
   }
-}
 
 // 라이프 사이클
-onBeforeMount(getPostPagenation);
-
+onBeforeMount(postIndexStore.getPostPagenation);
 
 </script>
 
@@ -39,16 +46,17 @@ onBeforeMount(getPostPagenation);
 <div class="card-container">
   <div
     class="card"
-    v-for="item in posts"
+    v-for="item in postIndexStore.items"
     :key="item.id"
     :style="{backgroundImage:`url(${item.image})`}"
   ></div>
 </div>
 <MyButton
-v-if="!isLastPage"
-:color="'gray'"
-:size="'big'"
-:content="'Show more posts from Kanna_Kamui'"
+  v-if="!postIndexStore.isLastPage"
+  :color="'gray'"
+  :size="'big'"
+  :content="'Show more posts from Kanna_Kamui'"
+  @click="getNextPage()"
 />
 </template>
 
