@@ -2,6 +2,7 @@
 import { onBeforeMount, ref } from 'vue';
 import MyButton from '../../components/buttons/MyButton.vue';
 import { usePostIndexStore } from '../../store/post/usePostIndexStore.js';
+import myAxios from '../../api/myAxios.js';
 
 // --------------------- 스토어로 이관 start----------
 // const posts =ref([]);
@@ -39,6 +40,7 @@ const getNextPage = async () => {
 
 // 라이프 사이클
 onBeforeMount(postIndexStore.getPostPagenation);
+onBeforeMount(postIndexStore.clearPostIndex);
 
 </script>
 

@@ -1,7 +1,7 @@
 import { defineStore } from "pinia";
 import { computed, ref } from "vue";
 import myAxios from "../../api/myAxios";
-import { useMyErrorStore } from "../errer/useMyErrorStore";
+import { useMyErrorStore } from "../error/useMyErrorStore";
 
 export const usePostIndexStore = defineStore('postIndex', () => {
   // 1.State (ref)
@@ -13,6 +13,12 @@ export const usePostIndexStore = defineStore('postIndex', () => {
   const getNextPageNumber = computed(() => currentPage.value + 1);
 
   // 3. Actions (function)
+  const clearPostIndex = () => {
+    items.value = [];
+    isLastPage.value = false;
+    currentPage.value = 0;
+  }
+
   const getPostPagenation = async (page = 1 ) => {
     // 마지막 페이지가 아닐 경우만 실행
 
@@ -39,6 +45,10 @@ export const usePostIndexStore = defineStore('postIndex', () => {
       }
     }
   }
+
+
+
+
     // if(!isLastPage.value) {
     //   try{
     //     const url = '/api/posts';
@@ -63,8 +73,9 @@ export const usePostIndexStore = defineStore('postIndex', () => {
     getNextPageNumber,
 
     // actions
-    getPostPagenation,
 
+    clearPostIndex,
+    getPostPagenation,
   }
 });
 

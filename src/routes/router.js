@@ -2,11 +2,17 @@
 import { createRouter, createWebHistory } from "vue-router";
 import MyError from "../page/error/MyError.vue";
 import PostIndex from "../page/posts/PostIndex.vue";
+import Login from "../page/auth/Login.vue";
 
 const routes = [
   {
     path: '/',
     redirect: '/posts'
+  },
+  //인증관련
+  {
+    path: '/login',
+    component: Login,
   },
   //게시글 관련
   {
