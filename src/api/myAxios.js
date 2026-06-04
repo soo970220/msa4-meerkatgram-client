@@ -30,7 +30,7 @@ myAxios.interceptors.request.use(async (config)=> {
     const now = dayjs().unix(); // 현재시간(dayjs) 반환(unix)
     const expTime = dayjs.unix(claims.exp).add(-5, 'minute').unix(); 
 
-    if(now>=expTime) {
+    if(now >= expTime) {
       try { 
         await authStore.reissue();
         accessToken = authStore.accessToken;

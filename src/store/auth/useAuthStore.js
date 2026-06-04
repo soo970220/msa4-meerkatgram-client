@@ -72,7 +72,17 @@ export const useAuthStore = defineStore('authStore', () => {
       clearAuthStore();
     }
   }
- 
+  const registration = async (data) => {
+    try {
+      const url = '/api/registration';
+
+      await myAxios.post(url, data);
+      return;
+    } catch (error) {
+      console.error(error);
+      throw error;
+    }
+  }
 
 
   return {
@@ -80,13 +90,15 @@ export const useAuthStore = defineStore('authStore', () => {
   isLoggedIn,
   accessToken,
   userInfo,
+  
 
   //Getters
 
   //Actions
   login,
   reissue,
-  logout
+  logout,
+  registration
 }
 
 });
