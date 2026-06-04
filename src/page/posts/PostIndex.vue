@@ -3,6 +3,7 @@ import { onBeforeMount, ref } from 'vue';
 import MyButton from '../../components/buttons/MyButton.vue';
 import { usePostIndexStore } from '../../store/post/usePostIndexStore.js';
 import myAxios from '../../api/myAxios.js';
+import { useRouter } from 'vue-router';
 
 // --------------------- 스토어로 이관 start----------
 // const posts =ref([]);
@@ -32,11 +33,16 @@ import myAxios from '../../api/myAxios.js';
 // }
 // --------------------- 스토어로 이관 end ----------
 
+const router = useRouter();
 const postIndexStore = usePostIndexStore();
 
 const getNextPage = async () => {
     await postIndexStore.getPostPagenation(postIndexStore.getNextPageNumber);
   }
+
+const redirectShow = (id)=> {
+  router.push(`/posts/${id}`);
+}
 
 // 라이프 사이클
 onBeforeMount(postIndexStore.getPostPagenation);
@@ -51,6 +57,7 @@ onBeforeMount(postIndexStore.clearPostIndex);
     v-for="item in postIndexStore.items"
     :key="item.id"
     :style="{backgroundImage:`url(${item.image})`}"
+    @click="redirectShow(item.id)"
   ></div>
 </div>
 <MyButton

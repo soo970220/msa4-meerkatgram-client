@@ -4,6 +4,8 @@ import MyError from "../page/error/MyError.vue";
 import PostIndex from "../page/posts/PostIndex.vue";
 import Login from "../page/auth/Login.vue";
 import { useAuthStore } from "../store/auth/useAuthStore.js";
+import PostShow from "../page/posts/PostShow.vue";
+import Registration from "../page/auth/Registration.vue";
 
 const setMeta = (isAuthenticated, isGuestOnly) => {
   return{
@@ -18,18 +20,34 @@ const routes = [
     redirect: '/posts',
     meta: setMeta(false,false),
   },
+  
   //인증관련
   {
     path: '/login',
     component: Login,
     meta: setMeta(false,true),
   },
+
+  {
+    path:'/registration',
+    component:Registration,
+    meta:setMeta(false,true)
+  },
+
   //게시글 관련
   {
     path: '/posts',
     component: PostIndex,
     meta: setMeta(false,false),
   },
+
+
+  {
+    path:'/posts/:id',
+    component:PostShow,
+    meta: setMeta(true,false),
+
+  }
   // //에러 관련
   // {
   //   path: '/errors',

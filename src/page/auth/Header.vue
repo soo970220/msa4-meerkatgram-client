@@ -47,16 +47,19 @@ const logout = async () => {
        :content="'Sign Up'"
        :color="'white'"
        :size="'small'"
-       @click="redirectRegistration" />
-
-
+       />
         <MyButton
        v-if ="authStore.isLoggedIn"
        :content="'Logout'"
        :color="'pink'"
        :size="'small'"
        @click="logout"/>
-       
+       <MyButton
+       v-if ="authStore.isLoggedIn"
+       :content="'Logout'"
+       :color="'pink'"
+       :size="'small'"
+       @click="logout"/>
     </div>
   </div>
 </template>
