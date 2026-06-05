@@ -1,11 +1,14 @@
 <script setup>
-import { onBeforeMount } from 'vue';
+import { onBeforeMount, onBeforeUnmount } from 'vue';
 import { NavigationFailureType, useRoute, useRouter} from'vue-router' ;
 import { usePostShowStore } from '../../store/post/usePostShowStore';
+import { useAuthStore } from '../../store/auth/useAuthStore';
 
 const route = useRoute();
 const router = useRouter();
 const postShowStore = usePostShowStore();
+const authStore = useAuthStore();
+
 
 onBeforeMount(async () => {
   try{
@@ -16,15 +19,20 @@ onBeforeMount(async () => {
    router.replace('/');
   }  
 })
+onBeforeUnmount(postShowStore.clearPostShow);
+
 
 
 </script>
 
 <template>
- <div class="container">
+ <div class="container" v-if="postShowStore.post">
   <div class="image" :style="{backgroundImage:`url(${postShowStore.post?.image})`}"></div>
     <div class="option-box">
-    <div class="delete-icon"></div>
+    <div class="delete-icon"v-if="postShowStore.post.userId === authStore.userInfo.id"
+    ></div>
+    <div v-else></div> 
+    <!-- v-else로 자식을 만들어도되고  div로 delete-icon을 감싸줘도 된다  -->
     <div class="like-box">
       <span>1919</span>
       <div class="like-icon"></div>
