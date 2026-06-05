@@ -38,17 +38,12 @@ export const usePostIndexStore = defineStore('postIndex', () => {
       } catch(error) {
         console.error(error)
         
-        useMyErrorStore().setErrorInfo(error);
-
+        throw error;
         // const myErrorStore = useMyErrorStore();
         // myErrorStore.setErrorInfo(error);
       }
     }
   }
-
-
-
-
     // if(!isLastPage.value) {
     //   try{
     //     const url = '/api/posts';

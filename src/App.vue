@@ -1,13 +1,14 @@
 <script setup>
 import Header from './components/Header.vue';
-import Main from './components/Main.vue';
+import UserInfo from './components/UserInfo.vue';
 import PostIndex from './page/posts/PostIndex.vue';
+
 
 
 </script>
 
 <template>
   <Header />
-  <hr>
-  <Main></Main>
+  <userInfo/>
+  <router-view></router-view>
 </template>

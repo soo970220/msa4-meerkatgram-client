@@ -3,26 +3,24 @@ import { onBeforeMount, onBeforeUnmount } from 'vue';
 import { NavigationFailureType, useRoute, useRouter} from'vue-router' ;
 import { usePostShowStore } from '../../store/post/usePostShowStore';
 import { useAuthStore } from '../../store/auth/useAuthStore';
+import { useMyErrorStore } from '../../store/error/useMyErrorStore';
 
 const route = useRoute();
 const router = useRouter();
 const postShowStore = usePostShowStore();
 const authStore = useAuthStore();
+const myErrorStore = useMyErrorStore();
 
 
 onBeforeMount(async () => {
   try{
     await postShowStore.getPost(route.params.id);
   } catch(error){
-   const msg = error?.response?.data.data ? error?.response?.data.data :"포스트획득실패";
-   alert(msg);
-   router.replace('/');
+   myErrorStore.setErrorInfo(error);
+   router.replace('/error');
   }  
 })
 onBeforeUnmount(postShowStore.clearPostShow);
-
-
-
 </script>
 
 <template>
@@ -34,7 +32,7 @@ onBeforeUnmount(postShowStore.clearPostShow);
     <div v-else></div> 
     <!-- v-else로 자식을 만들어도되고  div로 delete-icon을 감싸줘도 된다  -->
     <div class="like-box">
-      <span>1919</span>
+      <span> 1004 </span>
       <div class="like-icon"></div>
     </div>
   </div>

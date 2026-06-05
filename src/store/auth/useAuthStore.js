@@ -22,22 +22,16 @@ export const useAuthStore = defineStore('authStore', () => {
     try {
       const url = '/api/login';
 
-      const res = await myAxios.post(url, loginForm);
-      console.log('로그인 응답:', res.data);
+      const res = await myAxios.post(url, loginForm);      
       const data = res.data.data;
       accessToken.value = data.accessToken;
       userInfo.value = data.user;
       isLoggedIn.value = true;
-      console.log('로그인 상태:', isLoggedIn.value)
+   
     } catch (error) {
       console.log(error);
-      if (error.response) {
-        if (error.response.data.code === 'E01') {
-          alert(error.response.data.data);
-          return;
-        }
-      }
-      useMyErrorStore().setErrorInfo(error);
+    
+      throw error;
     }
   }
   const reissue = async () => {

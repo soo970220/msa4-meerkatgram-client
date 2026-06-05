@@ -45,7 +45,7 @@ const logout = async () => {
       <MyButton
        v-if="!authStore.isLoggedIn"
        :content="'Sign Up'"
-       :color="'white'"
+       :color="'yellow'"
        :size="'small'"
        @click="redirectRegistration" />
 
@@ -59,6 +59,7 @@ const logout = async () => {
        
     </div>
   </div>
+  <hr>
 </template>
 
 <style scoped>

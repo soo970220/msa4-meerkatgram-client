@@ -4,6 +4,7 @@ import MyButton from '../../components/buttons/MyButton.vue';
 import { usePostIndexStore } from '../../store/post/usePostIndexStore.js';
 import myAxios from '../../api/myAxios.js';
 import { useRouter } from 'vue-router';
+import { useMyErrorStore } from '../../store/error/useMyErrorStore.js';
 
 // --------------------- 스토어로 이관 start----------
 // const posts =ref([]);
@@ -35,9 +36,18 @@ import { useRouter } from 'vue-router';
 
 const router = useRouter();
 const postIndexStore = usePostIndexStore();
+const getPagination = async (page = 1) => {
+  try{
+
+    await postIndexStore.getPostPagenation(page);
+  }catch(error){
+    useMyErrorStore.setErrorInfo(error);
+    router.replace('/error');
+  }
+}
 
 const getNextPage = async () => {
-    await postIndexStore.getPostPagenation(postIndexStore.getNextPageNumber);
+    await getpagienation(postIndexStore.getNextPageNumber);
   }
 
 const redirectShow = (id)=> {
@@ -45,7 +55,7 @@ const redirectShow = (id)=> {
 }
 
 // 라이프 사이클
-onBeforeMount(postIndexStore.getPostPagenation);
+onBeforeMount(getPagination);
 onBeforeMount(postIndexStore.clearPostIndex);
 
 </script>

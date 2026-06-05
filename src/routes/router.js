@@ -47,12 +47,13 @@ const routes = [
     component:PostShow,
     meta: setMeta(true,false),
 
-  }
-  // //에러 관련
-  // {
-  //   path: '/errors',
-  //   component: MyError,
-  // },
+  },
+  //에러 관련
+  {
+    path: '/error',
+    component: MyError,
+    meta: setMeta(false,false),
+  },
 ];
 
 const router = createRouter({
