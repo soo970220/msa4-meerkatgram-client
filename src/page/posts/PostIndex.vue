@@ -47,7 +47,7 @@ const getPagination = async (page = 1) => {
 }
 
 const getNextPage = async () => {
-    await getpagienation(postIndexStore.getNextPageNumber);
+    await getPagination(postIndexStore.getNextPageNumber);
   }
 
 const redirectShow = (id)=> {
