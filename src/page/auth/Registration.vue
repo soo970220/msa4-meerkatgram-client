@@ -12,6 +12,7 @@ const router = useRouter();
 const fileStore = useFileStore();
 const authStore = useAuthStore();
 const myErrorStore = useMyErrorStore();
+const profileImage = ref(null);
 
 const preview = ref(null);
 const selectedFile = ref(null);
@@ -78,6 +79,7 @@ const handleChangeProfile = async (e) => {
 
   }
 }
+ 
 </script>
 
 <template>
@@ -103,6 +105,7 @@ const handleChangeProfile = async (e) => {
   :readonly="false"
   :required="true"
   v-model="registrationData.passwordChk"
+  
   ></MyInput>
 <MyInput
   :type="'text'"
@@ -111,17 +114,6 @@ const handleChangeProfile = async (e) => {
   :required="true"
   v-model="registrationData.nick"
   ></MyInput>
-
-
-<div
-  class="preview"
-  v-if="preview"
- :style="{backgroundImage: `url(${preview})`}"
-  ></div>
-
- <input type="file"
-  accept="image/*"
- @change="handleChangeProfile"/>
 
 <MyButton 
 :btn-type="'submit'"
