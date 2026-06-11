@@ -6,6 +6,7 @@ import Login from "../page/auth/Login.vue";
 import { useAuthStore } from "../store/auth/useAuthStore.js";
 import PostShow from "../page/posts/PostShow.vue";
 import Registration from "../page/auth/Registration.vue";
+import PostWrite from "../page/posts/PostWrite.vue";
 
 const setMeta = (isAuthenticated, isGuestOnly) => {
   return{
@@ -48,6 +49,13 @@ const routes = [
     meta: setMeta(true,false),
 
   },
+
+  {
+    path:'/posts/write',
+    component:PostWrite,
+    meta: setMeta(true,false), 
+  },
+
   //에러 관련
   {
     path: '/error',
