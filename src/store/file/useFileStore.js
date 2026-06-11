@@ -33,8 +33,26 @@ export const useFileStore = defineStore('fileStore',() => {
     }
 
   }
-  return {
-    uploadProfile,
+  const uploadPostImage = async (image) => {
+    try {
+      const url ='/api/post/create';
+
+      const data = new FormData();
+      data.append('file', image);
+     
+      const res = await myAxios.post(url, data);
+      return res.data;
+
+    } catch (error) {
+      console.error(error);
+      return null;
+    }
+  }
+   return {
+   uploadProfile,
+   uploadPostImage
 
   }
 });
+
+
